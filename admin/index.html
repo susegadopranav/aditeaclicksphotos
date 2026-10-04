@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>My journal — sign in</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<main class="admin">
+  <h1>My journal</h1>
+
+  <form id="login">
+    <p class="note">Sign in to add a new photograph.</p>
+    <label class="lbl" for="email">Email</label>
+    <input id="email" type="email" autocomplete="username" required>
+    <label class="lbl" for="pw">Password</label>
+    <input id="pw" type="password" autocomplete="current-password" required>
+    <button class="btn" type="submit">Sign in</button>
+    <p class="status" id="lerr" role="alert"></p>
+  </form>
+
+  <section id="dash" hidden>
+    <h2>Add a new update</h2>
+    <input id="file" class="vh" type="file" accept="image/*">
+    <label class="btn ghost" for="file">Choose photo</label>
+    <img id="preview" alt="Preview of the chosen photograph" hidden>
+
+    <label class="lbl" for="cap">Note (optional)</label>
+    <textarea id="cap" rows="3" maxlength="500" placeholder="Write something…"></textarea>
+
+    <button class="btn" id="publish" type="button" disabled>Publish</button>
+    <p class="status" id="status" role="status"></p>
+
+    <h2>Your updates</h2>
+    <div id="list"></div>
+
+    <a class="btn ghost" href="../">View my website</a>
+    <button class="btn ghost" id="out" type="button">Sign out</button>
+  </section>
+</main>
+
+<!-- Supabase's official browser library: handles sign-in, session refresh and uploads. Used only on this admin page. -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script src="../js/config.js"></script>
+<script src="admin.js"></script>
+</body>
+</html>
