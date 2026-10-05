@@ -21,13 +21,31 @@
 
   $('#login').onsubmit = async (e) => {
     e.preventDefault();
-    e.submitter.disabled = true;
-    const { error } = await sb.auth.signInWithPassword({ email: $('#email').value.trim(), password: $('#pw').value });
-    e.submitter.disabled = false;
-    $('#lerr').textContent = error ? 'That email or password didn’t work. Please try again.' : '';
-  };
-  $('#out').onclick = () => sb.auth.signOut();
 
+    const button = e.submitter;
+    button.disabled = true;
+    $('#lerr').textContent = 'Signing in…';
+
+    try {
+      const { data, error } = await sb.auth.signInWithPassword({
+        email: $('#email').value.trim(),
+        password: $('#pw').value
+      });
+
+      console.log('Supabase login result:', { data, error });
+
+      if (error) {
+        $('#lerr').textContent = `Login error: ${error.message}`;
+      } else {
+        $('#lerr').textContent = 'Login successful — loading journal…';
+      }
+    } catch (err) {
+      console.error('Unexpected login error:', err);
+      $('#lerr').textContent = `Unexpected error: ${err.message}`;
+    } finally {
+      button.disabled = false;
+    }
+};
   // Photos are shrunk in the browser before upload: one large and one small copy, JPEG
   const load = (file) => new Promise((ok, no) => {
     const i = new Image(), u = URL.createObjectURL(file);
